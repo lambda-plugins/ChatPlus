@@ -1,11 +1,11 @@
 {
-  "name": "PluginExample",
-  "version": "1.0",
+  "name": "ChatPlus",
+  "version": "0.1",
   "authors": [
-    "me",
-    "you"
+    "Lambda Contributors",
+    "czho"
   ],
-  "description": "does absolutely nothing",
-  "main_class": "PluginExample",
+  "description": "Extends Minecraft's chat features",
+  "main_class": "ChatPlusPlugin",
   "min_api_version": "2.04.01"
 }
