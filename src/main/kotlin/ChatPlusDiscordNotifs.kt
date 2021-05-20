@@ -67,12 +67,12 @@ internal object ChatPlusDiscordNotifs: PluginModule(
 
         listener<ConnectionEvent.Connect> {
             if (!connectionChange) return@listener
-            sendMessage(getPingID("KamiBlueMessageType1") + getTime() + getMessageType("KamiBlueMessageType1", server))
+            sendMessage(getPingID("LambdaMessageType1") + getTime() + getMessageType("LambdaMessageType1", server))
         }
 
         listener<ConnectionEvent.Disconnect> {
             if (!connectionChange) return@listener
-            sendMessage(getPingID("KamiBlueMessageType2") + getTime() + getMessageType("KamiBlueMessageType2", server))
+            sendMessage(getPingID("LambdaMessageType2") + getTime() + getMessageType("LambdaMessageType2", server))
         }
 
         /* Always on status code */
@@ -101,8 +101,8 @@ internal object ChatPlusDiscordNotifs: PluginModule(
     private fun getMessageType(message: String, server: String): String {
         if (direct && MessageDetection.Direct.RECEIVE detect message) return "You got a direct message!\n"
         if (direct && MessageDetection.Direct.SENT detect message) return "You sent a direct message!\n"
-        if (message == "KamiBlueMessageType1") return "Connected to $server"
-        return if (message == "KamiBlueMessageType2") "Disconnected from $server" else ""
+        if (message == "LambdaMessageType1") return "Connected to $server"
+        return if (message == "LambdaMessageType2") "Disconnected from $server" else ""
     }
 
     private fun timeout(message: String) = !timeout
@@ -111,8 +111,8 @@ internal object ChatPlusDiscordNotifs: PluginModule(
             || timer.tick(timeoutTime.toLong())
 
     /* Text formatting and misc methods */
-    private fun getPingID(message: String) = if (message == "KamiBlueMessageType1"
-        || message == "KamiBlueMessageType2"
+    private fun getPingID(message: String) = if (message == "LambdaMessageType1"
+        || message == "LambdaMessageType2"
         || direct && MessageDetection.Direct.ANY detect message
         || restart && MessageDetection.Server.RESTART detect message
         || importantPings && MessageDetection.Server.QUEUE_IMPORTANT detect message) formatPingID()

@@ -1,11 +1,10 @@
 {
   "name": "ChatPlus",
-  "version": "0.1",
+  "version": "1.0",
   "authors": [
-    "Lambda Contributors",
-    "czho"
+    "LambdaCore"
   ],
   "description": "Extends Minecraft's chat features",
   "main_class": "ChatPlusPlugin",
-  "min_api_version": "2.04.01"
+  "min_api_version": "2.05.01"
 }

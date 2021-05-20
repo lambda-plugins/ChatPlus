@@ -1,20 +1,18 @@
 [
   {
-    "modid": "PluginExample",
-    "name": "PluginExample",
-    "description": "does absolutely nothing",
+    "modid": "ChatPlus",
+    "name": "ChatPlus",
+    "description": "Extends Minecraft's chat features",
     "version": "${version}",
     "mcversion": "${mcversion}",
     "url": "lambda-client.com",
     "updateUrl": "",
     "authorList": [
-      "me",
-      "you"
+      "LambdaCore"
     ],
     "credits": "",
     "logoFile": "",
     "screenshots": [],
-    "dependencies": [],
-    "test": ""
+    "dependencies": []
   }
 ]
