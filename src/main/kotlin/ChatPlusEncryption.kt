@@ -1,10 +1,9 @@
-import com.lambda.client.module.Category
-import com.lambda.client.plugin.api.PluginModule
-
 import com.lambda.client.event.events.PacketEvent
 import com.lambda.client.manager.managers.MessageManager
 import com.lambda.client.manager.managers.MessageManager.newMessageModifier
 import com.lambda.client.mixin.extension.textComponent
+import com.lambda.client.module.Category
+import com.lambda.client.plugin.api.PluginModule
 import com.lambda.client.util.text.MessageDetection
 import com.lambda.client.util.text.MessageSendHelper
 import com.lambda.client.util.text.format
@@ -17,7 +16,7 @@ import kotlinx.coroutines.launch
 import net.minecraft.network.play.server.SPacketChat
 import net.minecraft.util.text.TextFormatting
 
-internal object ChatPlusEncryption: PluginModule(
+internal object ChatPlusEncryption : PluginModule(
     name = "ChatEncryption",
     description = "Encrypts and decrypts chat messages",
     category = Category.CHAT,

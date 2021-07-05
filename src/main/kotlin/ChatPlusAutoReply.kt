@@ -1,30 +1,17 @@
-import com.lambda.client.command.CommandManager
+import com.lambda.client.event.events.PacketEvent
 import com.lambda.client.module.Category
 import com.lambda.client.plugin.api.PluginModule
-
-import com.lambda.client.event.events.PacketEvent
-import com.lambda.client.manager.managers.FriendManager
-import com.lambda.client.manager.managers.MessageManager
-import com.lambda.client.manager.managers.MessageManager.newMessageModifier
-import com.lambda.client.mixin.extension.textComponent
 import com.lambda.client.util.TickTimer
 import com.lambda.client.util.TimeUnit
 import com.lambda.client.util.text.MessageDetection
 import com.lambda.client.util.text.MessageSendHelper
 import com.lambda.client.util.text.MessageSendHelper.sendServerMessage
-import com.lambda.client.util.text.format
-import com.lambda.client.util.text.formatValue
-import com.lambda.client.util.threads.defaultScope
 import com.lambda.client.util.threads.safeListener
-import com.lambda.commons.utils.SystemUtils
 import com.lambda.event.listener.listener
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import net.minecraft.network.play.server.SPacketChat
-import net.minecraft.util.text.TextFormatting
 import net.minecraftforge.fml.common.gameevent.TickEvent
 
-internal object ChatPlusAutoReply: PluginModule(
+internal object ChatPlusAutoReply : PluginModule(
     name = "AutoReply",
     description = "Automatically reply to direct messages",
     category = Category.CHAT,
@@ -34,14 +21,19 @@ internal object ChatPlusAutoReply: PluginModule(
     private val customText by setting("Custom Text", "unchanged", { customMessage })
 
     private val timer = TickTimer(TimeUnit.SECONDS)
+    private const val defaultMessage = "I just automatically replied, thanks to Lambda's AutoReply module!"
 
     init {
         listener<PacketEvent.Receive> {
-            if (it.packet !is SPacketChat || MessageDetection.Direct.RECEIVE detect (it.packet as SPacketChat).chatComponent.unformattedText) return@listener
-            if (customMessage) {
-                sendServerMessage("/r $customText")
-            } else {
-                sendServerMessage("/r I just automatically replied, thanks to Lambda's AutoReply module!")
+            if (it.packet is SPacketChat) {
+                val message = (it.packet as SPacketChat).chatComponent.unformattedText
+                if (MessageDetection.Direct.RECEIVE detect message) {
+                    if (customMessage) {
+                        if (!message.contains(customText)) sendServerMessage("/r $customText")
+                    } else {
+                        if (!message.contains(defaultMessage)) sendServerMessage("/r $defaultMessage")
+                    }
+                }
             }
         }
 

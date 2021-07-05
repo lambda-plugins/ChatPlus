@@ -2,35 +2,26 @@ import com.google.gson.JsonObject
 import com.lambda.client.LambdaMod
 import com.lambda.client.command.CommandManager
 import com.lambda.client.event.events.ConnectionEvent
-import com.lambda.client.module.Category
-import com.lambda.client.plugin.api.PluginModule
-
 import com.lambda.client.event.events.PacketEvent
-import com.lambda.client.manager.managers.FriendManager
-import com.lambda.client.manager.managers.MessageManager
-import com.lambda.client.manager.managers.MessageManager.newMessageModifier
-import com.lambda.client.mixin.extension.textComponent
+import com.lambda.client.module.Category
 import com.lambda.client.module.modules.chat.ChatTimestamp
+import com.lambda.client.plugin.api.PluginModule
 import com.lambda.client.util.TickTimer
 import com.lambda.client.util.TimeUnit
 import com.lambda.client.util.text.MessageDetection
 import com.lambda.client.util.text.MessageSendHelper
-import com.lambda.client.util.text.MessageSendHelper.sendServerMessage
-import com.lambda.client.util.text.format
 import com.lambda.client.util.text.formatValue
 import com.lambda.client.util.threads.defaultScope
 import com.lambda.client.util.threads.safeListener
 import com.lambda.commons.utils.ConnectionUtils
-import com.lambda.commons.utils.SystemUtils
 import com.lambda.event.listener.listener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import net.minecraft.network.play.server.SPacketChat
-import net.minecraft.util.text.TextFormatting
 import net.minecraftforge.fml.common.gameevent.TickEvent
 import org.apache.commons.io.IOUtils
 
-internal object ChatPlusDiscordNotifs: PluginModule(
+internal object ChatPlusDiscordNotifs : PluginModule(
     name = "DiscordNotifs",
     category = Category.CHAT,
     description = "Sends your chat to a set Discord channel",
@@ -78,14 +69,18 @@ internal object ChatPlusDiscordNotifs: PluginModule(
         /* Always on status code */
         safeListener<TickEvent.ClientTickEvent> {
             if (url.value == "unchanged") {
-                MessageSendHelper.sendErrorMessage(chatName + " You must first set a webhook url with the " +
-                        formatValue("${CommandManager.prefix}discordnotifs") +
-                        " command")
+                MessageSendHelper.sendErrorMessage(
+                    chatName + " You must first set a webhook url with the " +
+                            formatValue("${CommandManager.prefix}discordnotifs") +
+                            " command"
+                )
                 disable()
             } else if (pingID.value == "unchanged" && importantPings) {
-                MessageSendHelper.sendErrorMessage(chatName + " For Pings to work, you must set a Discord ID with the " +
-                        formatValue("${CommandManager.prefix}discordnotifs") +
-                        " command")
+                MessageSendHelper.sendErrorMessage(
+                    chatName + " For Pings to work, you must set a Discord ID with the " +
+                            formatValue("${CommandManager.prefix}discordnotifs") +
+                            " command"
+                )
                 disable()
             }
         }
@@ -115,7 +110,8 @@ internal object ChatPlusDiscordNotifs: PluginModule(
         || message == "LambdaMessageType2"
         || direct && MessageDetection.Direct.ANY detect message
         || restart && MessageDetection.Server.RESTART detect message
-        || importantPings && MessageDetection.Server.QUEUE_IMPORTANT detect message) formatPingID()
+        || importantPings && MessageDetection.Server.QUEUE_IMPORTANT detect message
+    ) formatPingID()
     else ""
 
     private fun formatPingID(): String {

@@ -1,6 +1,6 @@
 import com.lambda.client.plugin.api.Plugin
 
-internal object ChatPlusPlugin: Plugin() {
+internal object ChatPlusPlugin : Plugin() {
 
     override fun onLoad() {
         modules.add(ChatPlusEncryption)
