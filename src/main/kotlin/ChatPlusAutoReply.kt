@@ -30,23 +30,23 @@ internal object ChatPlusAutoReply: PluginModule(
     category = Category.CHAT,
     pluginMain = ChatPlusPlugin
 ) {
-    private val customMessage = setting("Custom Message", false)
-    private val customText = setting("Custom Text", "unchanged", { customMessage.value })
+    private val customMessage by setting("Custom Message", false)
+    private val customText by setting("Custom Text", "unchanged", { customMessage })
 
     private val timer = TickTimer(TimeUnit.SECONDS)
 
     init {
         listener<PacketEvent.Receive> {
             if (it.packet !is SPacketChat || MessageDetection.Direct.RECEIVE detect (it.packet as SPacketChat).chatComponent.unformattedText) return@listener
-            if (customMessage.value) {
-                sendServerMessage("/r " + customText.value)
+            if (customMessage) {
+                sendServerMessage("/r $customText")
             } else {
                 sendServerMessage("/r I just automatically replied, thanks to Lambda's AutoReply module!")
             }
         }
 
         safeListener<TickEvent.ClientTickEvent> {
-            if (timer.tick(5L) && customMessage.value && customText.value.equals("unchanged", true)) {
+            if (timer.tick(5L) && customMessage && customText.equals("unchanged", true)) {
                 MessageSendHelper.sendWarningMessage("$chatName Warning: In order to use the custom $name, please change the CustomText setting in ClickGUI")
             }
         }

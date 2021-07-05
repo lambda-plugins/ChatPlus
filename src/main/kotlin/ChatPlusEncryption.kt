@@ -123,7 +123,7 @@ internal object ChatPlusEncryption: PluginModule(
 
     private val modifier = newMessageModifier(
         filter = {
-            (commands || MessageDetection.Command.ANY_EXCEPT_DELIMITER detectNot it.packet.message)
+            (commands || MessageDetection.Command.ANY detectNot it.packet.message)
         },
         modifier = {
             it.encrypt() ?: it.packet.message
