@@ -12,7 +12,7 @@ internal object ChatPlusSpecialChat : PluginModule(
 ) {
     private val modifier = newMessageModifier {
         it.packet.message
-            .replace('&', '')
+            .replace('&', '§')
             .replace("#n", "\n")
     }
 
