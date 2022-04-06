@@ -7,7 +7,7 @@ import com.lambda.client.util.text.MessageDetection
 import com.lambda.client.util.text.MessageSendHelper
 import com.lambda.client.util.text.MessageSendHelper.sendServerMessage
 import com.lambda.client.util.threads.safeListener
-import com.lambda.event.listener.listener
+import com.lambda.client.event.listener.listener
 import net.minecraft.network.play.server.SPacketChat
 import net.minecraftforge.fml.common.gameevent.TickEvent
 

@@ -10,7 +10,7 @@ import com.lambda.client.util.text.format
 import com.lambda.client.util.text.formatValue
 import com.lambda.client.util.threads.defaultScope
 import com.lambda.client.util.threads.safeListener
-import com.lambda.commons.utils.SystemUtils
+import com.lambda.client.commons.utils.SystemUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import net.minecraft.network.play.server.SPacketChat
